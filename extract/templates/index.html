@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+{% load humanize %}
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <title>Product or Category?</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+</head>
+<body>
+    <nav class="green darken-4">
+        <div class='nav-wrapper'>
+            <a href="/" class="center-align brand-logo center">
+                <h4 class='white-text thin hide-on-med-and-down'>Product or Category?</h4>
+                <h4 class='white-text thin hide-on-large-only'>PoC?</h4>
+            </a>
+        </div>
+    </nav>
+    <br />
+    <div class='container'>
+       {% if not product and not catagory %}
+
+        <div class='row valign-wrapper'>
+            <div class='col s6 l6 valign'>
+                <h2 class="center hide-on-med-and-down">
+                    <i class="fa fa-globe"></i><br>
+                    Enter an amazon URL
+                </h2>
+                <h5 class="center hide-on-large-only">
+                    <i class="fa fa-globe"></i><br>
+                    Enter an amazon URL
+                </h5>
+            </div>
+            <div class='col s6 l6 valign'>
+                <h2 class="center hide-on-med-and-down">
+                    <i class="fa fa-tag"></i><br>
+                    I respond with meta data!
+                </h2>
+                <h5 class="center hide-on-large-only">
+                    <i class="fa fa-tag"></i><br>
+                    I respond with meta data!
+                </h5>
+            </div>
+        </div>
+        {% elif product %}
+            <div class='col s12 l12 valign'>
+                <h2 class="center hide-on-med-and-down">
+                    <i class="fa fa-cubes"></i><br>
+                    Product!
+                </h2>
+                <h5 class="center hide-on-large-only">
+                    <i class="fa fa-cubes"></i><br>
+                    Product!
+                </h5>
+            </div>
+        {% elif catagory %}
+            <div class='col s12 l12 valign'>
+                <h2 class="center hide-on-med-and-down">
+                    <i class="fa fa-circle"></i><br>
+                    Category!
+                </h2>
+                <h5 class="center hide-on-large-only">
+                    <i class="fa fa-circle"></i><br>
+                    Category!
+                </h5>
+            </div>
+        {% endif %}
+        <!-- FORM RESPONSE -->
+        {% if not product and not catagory and request.POST.url %}
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="card-panel red lighten-1">
+                    <span class="white-text"><h5><i class="mdi-alert-error left"></i> This doesnt seem to be a product or a catagory.</h5></span>
+                </div>
+            </div>
+        </div>
+        {% elif product %}
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="card-panel green lighten-1">
+                    <span class="">
+                        <h5>
+                            Category: {{ product.catagory.description }}<br />
+                            Category URL: {{ product.catagory.url }}<br />
+                            Product Details:<br />
+                            <ul class="collection">
+                                <li class="collection-item">{{ product.description }}</a></li>
+                                <li class="collection-item">{{ product.price }}</a></li>
+                                <li class="collection-item">{% if product.prime %}Prime!{% else %}No Prime :({% endif %}</a></li>
+                                {% for f in related_features %}
+                                    <li class="collection-item">{{ f }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </h5>
+                    </span>
+                </div>
+            </div>
+        </div>
+        {% elif catagory %}
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="card-panel green lighten-1">
+                    <span class="">
+                        <h5>
+                            Category: {{ catagory.description }}<br />
+                            Category URL: {{ catagory.url }}<br />
+                            {% if related_products|length > 0 %}
+                                Products:<br />
+                                <ul class="collection">
+                                    {% for p in related_products %}
+                                        <li class="collection-item"><a href="{{ p.url }}">{{ p.description }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                            Amazon doesn't seem to be showing any distinct product links on this category page. Try a layer deeper.
+                            {% endif %}
+                        </h5>   
+                    </span>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <!-- FORM -->
+        <div class="form-container active">
+            <form class="col s12" action='/' method="post" >{% csrf_token %}
+                <div class='row'>
+                    <div class="input-field offset-s4">
+                        <div class="input-field">
+                            <input name='url' id="URL" type="text" class="validate">
+                            <label for="URL">Enter URL you want to learn more about</label>
+                        </div>
+                    </div>
+                </div>
+            <h5 class="center-align">
+            <button class="btn waves-effect waves-light" type="submit" name="action">Extract
+                <i class="fa fa-eyedropper"></i>
+            </button>
+            </h5>
+            </form>
+        </div>
+    </div>
+    <!-- FOOTER -->
+    <footer class="page-footer green darken-4">
+        <div class="footer-copyright center-align">
+            <div class="container">
+                Made by Joey Liechty.
+            </div>
+        </div>
+    </footer>
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
+</body>
+</html>
