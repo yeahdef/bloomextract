@@ -1,7 +1,8 @@
 # bloomextract
-a simple amazon category / product page parser
+A simple Amazon.com category / product page parser
 
 I assume you have virtualenv...
+
 Get up and running by doing this:
 
 	git clone https://github.com/yeahdef/bloomextract.git
@@ -12,5 +13,8 @@ Get up and running by doing this:
 	python manage.py migrate
 	python manage.py runserver
 
-navigate to localhost in your browser.
-input a product or category page URL into the form.
+Navigate to localhost:8000 in your browser.
+
+Input a product or category page URL into the form.
+
+I haven't done a large volume of testing, but this appears to work for most physical goods.
