@@ -20,7 +20,7 @@
     </nav>
     <br />
     <div class='container'>
-       {% if not product and not catagory %}
+       {% if not product and not category %}
 
         <div class='row valign-wrapper'>
             <div class='col s6 l6 valign'>
@@ -55,7 +55,7 @@
                     Product!
                 </h5>
             </div>
-        {% elif catagory %}
+        {% elif category %}
             <div class='col s12 l12 valign'>
                 <h2 class="center hide-on-med-and-down">
                     <i class="fa fa-circle"></i><br>
@@ -68,11 +68,11 @@
             </div>
         {% endif %}
         <!-- FORM RESPONSE -->
-        {% if not product and not catagory and request.POST.url %}
+        {% if not product and not category and request.POST.url %}
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="card-panel red lighten-1">
-                    <span class="white-text"><h5><i class="mdi-alert-error left"></i> This doesnt seem to be a product or a catagory.</h5></span>
+                    <span class="white-text"><h5><i class="mdi-alert-error left"></i> This doesnt seem to be a product or a category.</h5></span>
                 </div>
             </div>
         </div>
@@ -82,8 +82,8 @@
                 <div class="card-panel green lighten-1">
                     <span class="">
                         <h5>
-                            Category: {{ product.catagory.description }}<br />
-                            Category URL: {{ product.catagory.url }}<br />
+                            Category: {{ product.category.description }}<br />
+                            Category URL: {{ product.category.url }}<br />
                             Product Details:<br />
                             <ul class="collection">
                                 <li class="collection-item">{{ product.description }}</a></li>
@@ -98,14 +98,14 @@
                 </div>
             </div>
         </div>
-        {% elif catagory %}
+        {% elif category %}
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="card-panel green lighten-1">
                     <span class="">
                         <h5>
-                            Category: {{ catagory.description }}<br />
-                            Category URL: {{ catagory.url }}<br />
+                            Category: {{ category.description }}<br />
+                            Category URL: {{ category.url }}<br />
                             {% if related_products|length > 0 %}
                                 Products:<br />
                                 <ul class="collection">
