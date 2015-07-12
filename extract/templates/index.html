@@ -88,7 +88,6 @@
                             <ul class="collection">
                                 <li class="collection-item">{{ product.description }}</a></li>
                                 <li class="collection-item">{{ product.price }}</a></li>
-                                <li class="collection-item">{% if product.prime %}Prime!{% else %}No Prime :({% endif %}</a></li>
                                 {% for f in related_features %}
                                     <li class="collection-item">{{ f }}</a></li>
                                 {% endfor %}
