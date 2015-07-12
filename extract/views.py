@@ -31,7 +31,7 @@ def test_product_page(html, url):
         bread = html.find('div', {"id": "nav-subnav"})
         cat = bread.find_all("a", href=True)[0]
         c, created = Category.objects.get_or_create(description=cat.text, url='http://amazon.com{0}'.format(cat['href']))
-        p, created = Product.objects.get_or_create(url=url, description=html.title.text, category=c, price=get_price(html), prime=is_prime(html))
+        p, created = Product.objects.get_or_create(url=url, description=html.title.text, category=c, price=get_price(html))
 
         fb = html.find("div", {"id": "feature-bullets"})
         for f in fb.find_all('span', {"class": 'a-list-item'}):
