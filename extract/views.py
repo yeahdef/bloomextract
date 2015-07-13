@@ -63,11 +63,10 @@ def home(request):
         r = requests.get(url)
         # get soupy
         html = BeautifulSoup(r.text, "html.parser")
-        if html.find('span', {'class': 'big_prodtitle'}) \
+        if (html.find('span', {'class': 'big_prodtitle'}) \
+        or html.find('span', {'class': 'prodtitle'})) \
         and not html.find('div', {'id': 'bigbread'}) \
         and html.find('div', {'class': 'user-column'}) \
-        and html.find('input', {'id': 'add-to-cart'}) \
-        and html.find('div', {'class': 'metadata'}) \
         and html.find('div', {'class': 'freeshipping'}):
             # confirmed product, parse details
             product = test_product_page(html, url)
