@@ -130,8 +130,13 @@
                 <div class='row'>
                     <div class="input-field offset-s4">
                         <div class="input-field">
-                            <input name='url' id="URL" type="text" class="validate">
+                            {% if not request.POST %}
+                                <input value='http://turntablelab.com/collections/headphones-date' name='url' id="URL" type="text" class="validate">
+                            {% else %}
+                                <input name='url' id="URL" type="text" class="validate">
+                            {% endif %}
                             <label for="URL">Enter URL you want to learn more about</label>
+
                         </div>
                     </div>
                 </div>
