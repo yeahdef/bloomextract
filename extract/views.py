@@ -10,10 +10,6 @@ import requests
 from bs4 import BeautifulSoup
 
 
-KNOWN_CATEGORY = 'http://smile.amazon.com/music-rock-classical-pop-jazz/b/ref=nav_shopall_cd_vinyl?ie=UTF8&node=5174'
-KNOWN_PRODUCT = 'http://smile.amazon.com/gp/product/B00VF7OZTY/ref=s9_newr_bw_d74_g15_i2?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=merchandised-search-4&pf_rd_r=02GDHN4GWVE3E7KHHBJD&pf_rd_t=101&pf_rd_p=1979743882&pf_rd_i=5174'
-
-
 def get_price(html):
     '''Grabs the price from the product page'''
     price = html.find("span", {"id": "priceblock_ourprice"})
@@ -39,9 +35,9 @@ def test_product_page(html, url):
             for f in fb.find_all('span', {"class": 'a-list-item'}):
                 feature, created = Feature.objects.get_or_create(description=f.text, product=p)
         if db:
-            for f in db.find_all('b'):
+            for f in db.find_all('li'):
                 try:
-                    feature, created = Feature.objects.get_or_create(description=f.parent.text, product=p)
+                    feature, created = Feature.objects.get_or_create(description=f.text, product=p)
                 except UnicodeEncodeError, e:
                     pass
     return p
