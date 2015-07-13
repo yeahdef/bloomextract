@@ -63,23 +63,23 @@ def home(request):
         r = requests.get(url)
         # get soupy
         html = BeautifulSoup(r.text, "html.parser")
-        if html.find('span', {'class': 'big_prodtitle'}) and not html.find('div', {'id': 'bigbread'}):
+        if html.find('span', {'class': 'big_prodtitle'}) \
+        and not html.find('div', {'id': 'bigbread'}) \
+        and html.find('div', {'class': 'user-column'}) \
+        and html.find('input', {'id': 'add-to-cart'}) \
+        and html.find('div', {'class': 'metadata'}) \
+        and html.find('div', {'class': 'freeshipping'}):
             # confirmed product, parse details
             product = test_product_page(html, url)
             category = None
             related_products = None,
             related_features = Feature.objects.filter(product=product)
-        elif html.find('div', {'id': 'bigbread'}):
+        else:
             # not a product, look for product links - probably a category
             category = test_category_page(html, url)
             product = None
             related_products = Product.objects.filter(category=category)
             related_features = None,
-        else:
-            product = None
-            category = None
-            related_products = None
-            related_features = None
 
         return render_to_response(
             'index.html',
