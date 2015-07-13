@@ -74,6 +74,11 @@ def home(request):
             product = None
             related_products = Product.objects.filter(category=category),
             related_features = None,
+        else:
+            product = None
+            category = None
+            related_products = None
+            related_features = None
 
         return render_to_response(
             'index.html',
