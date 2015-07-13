@@ -12,6 +12,7 @@ class Category(models.Model):
 
 class Product(models.Model):
   url = models.CharField(max_length=255)
+  price = models.CharField(max_length=255)
   category = models.ForeignKey(Category)
   description = models.CharField(max_length=255, )
 

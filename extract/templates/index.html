@@ -88,7 +88,7 @@
                             <ul class="collection">
                                 <li class="collection-item">{{ product.description }}</li>
                                 {% for rf in related_features %}
-                                    <li class="collection-item">{{ rf }}</li>
+                                    <li class="collection-item">{{ rf.description }}</li>
                                 {% endfor %}
                             </ul>
                         </h5>
@@ -108,13 +108,11 @@
                                 Related Products:
                                 <ul class="collection">
                                     {% for rp in related_products %}
-                                        {% for z in rp %}
                                         <li class="collection-item">
-                                            <a href="{{ z.url }}">
-                                                {{ z }}
+                                            <a href="{{ rp.url }}">
+                                                {{ rp.description }}
                                             </a>
                                         </li>
-                                        {% endfor %}
                                     {% endfor %}
                                 </ul>
                             {% else %}

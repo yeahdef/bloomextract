@@ -33,9 +33,9 @@ def test_product_page(html, url):
         if f.find_all('a'):
             pass
         else:
-            # probably a feature\
-            if len(f.text) > 0:
-                feature, created = Feature.objects.get_or_create(description=f.text.encode('utf-8').strip(), product=p)
+            # probably a feature
+            if len(f.text.strip()) > 0:
+                feature, created = Feature.objects.get_or_create(description=f.text.strip(), product=p)
     return p
 
 
@@ -44,7 +44,7 @@ def test_category_page(html, url):
     c, created = Category.objects.get_or_create(url=url, description=html.title.text)
     for f in html.find_all('li', {'class': 'titles'}):
         for a in f.find_all('a'):
-            p, created = Product.objects.get_or_create(url='http://turntablelab.com{0}'.format(a['href']), category=c, description=a.text)
+            p, created = Product.objects.get_or_create(url='http://turntablelab.com{0}'.format(a['href']), category=c, description=a.text.strip())
     return c
 
 
@@ -68,12 +68,12 @@ def home(request):
             product = test_product_page(html, url)
             category = None
             related_products = None,
-            related_features = Feature.objects.filter(product=product),
+            related_features = Feature.objects.filter(product=product)
         elif html.find('div', {'id': 'bigbread'}):
             # not a product, look for product links - probably a category
             category = test_category_page(html, url)
             product = None
-            related_products = Product.objects.filter(category=category),
+            related_products = Product.objects.filter(category=category)
             related_features = None,
         else:
             product = None
