@@ -1,5 +1,5 @@
 # bloomextract
-A simple turntablelab.com category / product page parser
+A simple http://turntablelab.com category / product page parser
 
 I assume you have virtualenv...
 
@@ -12,9 +12,8 @@ Get up and running by doing this:
 	pip install -r requirements.txt
 	python manage.py migrate
 	python manage.py runserver
+	sensible-browser http://localhost:8000
 
-Navigate to localhost:8000 in your browser.
-
-Input a product or category page URL into the form.
+Input a product or category page URL into the form from http://turntablelab.com.
 
 I haven't done a large volume of testing, but this appears to work for most physical goods.
