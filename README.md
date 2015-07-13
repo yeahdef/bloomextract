@@ -11,7 +11,7 @@ Get up and running by doing this:
 	cd bloomextract
 	pip install -r requirements.txt
 	python manage.py migrate
-	python manage.py runserver & sleep 5 & sensible-browser http://localhost:8000
+	python manage.py runserver & sensible-browser http://localhost:8000
 
 Input a product or category page URL into the form from http://turntablelab.com.
 
