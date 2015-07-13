@@ -1,5 +1,5 @@
 # bloomextract
-A simple Amazon.com category / product page parser
+A simple turntablelab.com category / product page parser
 
 I assume you have virtualenv...
 
