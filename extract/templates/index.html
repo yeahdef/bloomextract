@@ -84,11 +84,11 @@
                         <h5>
                             Category: {{ product.category.description }}<br />
                             Category URL: {{ product.category.url }}<br />
-                            Product Details:
+                            Product Features:
                             <ul class="collection">
                                 <li class="collection-item">{{ product.description }}</li>
-                                {% for f in related_features %}
-                                    <li class="collection-item">{{ f }}</li>
+                                {% for rf in related_features %}
+                                    <li class="collection-item">{{ rf }}</li>
                                 {% endfor %}
                             </ul>
                         </h5>
@@ -105,14 +105,16 @@
                             Category: {{ category.description }}<br />
                             Category URL: {{ category.url }}<br />
                             {% if related_products|length > 0 %}
-                                Products:
+                                Related Products:
                                 <ul class="collection">
-                                    {% for p in related_products %}
+                                    {% for rp in related_products %}
+                                        {% for z in rp %}
                                         <li class="collection-item">
-                                            <a href="{{ p.url }}">
-                                                {{ p.description }}
+                                            <a href="{{ z.url }}">
+                                                {{ z }}
                                             </a>
                                         </li>
+                                        {% endfor %}
                                     {% endfor %}
                                 </ul>
                             {% else %}
