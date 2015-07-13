@@ -34,8 +34,16 @@ def test_product_page(html, url):
         p, created = Product.objects.get_or_create(url=url, description=html.title.text, category=c, price=get_price(html))
 
         fb = html.find("div", {"id": "feature-bullets"})
-        for f in fb.find_all('span', {"class": 'a-list-item'}):
-            feature, created = Feature.objects.get_or_create(description=f.text, product=p)
+        db = html.find("div", {"id": "detail-bullets"})
+        if fb:
+            for f in fb.find_all('span', {"class": 'a-list-item'}):
+                feature, created = Feature.objects.get_or_create(description=f.text, product=p)
+        if db:
+            for f in db.find_all('b'):
+                try:
+                    feature, created = Feature.objects.get_or_create(description=f.parent.text, product=p)
+                except UnicodeEncodeError, e:
+                    pass
     return p
 
 
@@ -57,7 +65,7 @@ def home(request):
         )
     if request.method == "POST":
         url = request.POST['url']
-        
+
         # should probably use a better regex parsing here
         if not url.startswith('http://'):
             url = 'http://{0}'.format(url)
