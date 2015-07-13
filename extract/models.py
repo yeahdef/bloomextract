@@ -7,7 +7,7 @@ class Category(models.Model):
   description = models.CharField(max_length=255, )
 
   def __unicode__(self):
-    return '{0}: {1}' % (self.pk, self.description)
+    return '{0}: {1}'.format(self.pk, self.description)
 
 
 class Product(models.Model):
@@ -17,7 +17,7 @@ class Product(models.Model):
   description = models.CharField(max_length=255, )
 
   def __unicode__(self):
-    return '{0}: {1}' % (self.pk, self.description)
+    return '{0}: {1}'.format(self.pk, self.description)
 
 
 class Feature(models.Model):
@@ -25,4 +25,4 @@ class Feature(models.Model):
   description = models.CharField(max_length=255, )
 
   def __unicode__(self):
-    return '{0}: {1}' % (self.pk, self.description)
+    return '{0}: {1}'.format(self.pk, self.description)
