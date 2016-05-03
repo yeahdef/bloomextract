@@ -3,7 +3,6 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.conf import settings
-from django.contrib.sites.models import RequestSite
 from django.db import IntegrityError
 from extract.models import Product, Category, Feature
 import requests
